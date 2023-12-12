@@ -44,4 +44,8 @@ public class User extends BaseEntity {
 
     @Column(name = "voted_demoday")
     private boolean votedDemoday;
+
+    public void updateVotedDemoday() {
+        this.votedDemoday = true;
+    }
 }
