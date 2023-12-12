@@ -29,4 +29,8 @@ public class PartLeader extends BaseEntity {
     private Part part;
     
     private Integer votes;
+
+    public void increaseVotes() {
+        votes++;
+    }
 }
