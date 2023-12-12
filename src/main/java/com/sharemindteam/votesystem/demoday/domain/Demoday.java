@@ -27,4 +27,8 @@ public class Demoday extends BaseEntity {
     private Team team;
 
     private Integer votes;
+
+    public void increaseVotes() {
+        votes++;
+    }
 }
