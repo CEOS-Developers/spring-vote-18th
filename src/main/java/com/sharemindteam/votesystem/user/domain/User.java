@@ -48,4 +48,8 @@ public class User extends BaseEntity {
     public void updateVotedDemoday() {
         this.votedDemoday = true;
     }
+
+    public void updateVotedPartLeader() {
+        this.votedPart = true;
+    }
 }

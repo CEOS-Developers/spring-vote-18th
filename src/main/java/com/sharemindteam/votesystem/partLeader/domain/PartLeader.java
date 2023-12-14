@@ -2,6 +2,7 @@ package com.sharemindteam.votesystem.partLeader.domain;
 
 import com.sharemindteam.votesystem.global.common.BaseEntity;
 import com.sharemindteam.votesystem.global.content.Part;
+import com.sharemindteam.votesystem.global.content.Team;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,6 +28,13 @@ public class PartLeader extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Part part;
+
+    @Enumerated(EnumType.STRING)
+    private Team team;
     
     private Integer votes;
+
+    public void increaseVotes() {
+        votes++;
+    }
 }
