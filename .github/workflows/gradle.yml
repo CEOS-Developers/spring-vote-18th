@@ -41,8 +41,12 @@ jobs:
           script: |
             
             cd /home/ubuntu/
+
+            sudo touch .env
+            echo "${{ secrets.ENV_VARS }}" | sudo tee .env > /dev/null
             
-            echo ${{ secrets.ENV_VARS }} | base64 --decode > .env
+            sudo touch docker-compose.yaml
+            echo "${{ vars.DOCKER_COMPOSE }}" | sudo tee docker-compose.yaml > /dev/null
             
             ## docker-compose 실행
             sudo chmod 666 /var/run/docker.sock
