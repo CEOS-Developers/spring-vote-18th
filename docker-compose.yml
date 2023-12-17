@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  web:
+    container_name: web
+    image: younggyolee/reddi
+    ports:
+      - "8080:8080"
+    restart: always
+    volumes:
+      - .:/app
+volumes:
+  app:
+  dbdata:
