@@ -45,7 +45,7 @@ jobs:
             sudo touch .env
             echo "${{ secrets.ENV_VARS }}" | sudo tee .env > /dev/null
             
-            sudo touch docker-compose.yaml
+            sudo touch docker-compose.yml
             echo "${{ vars.DOCKER_COMPOSE }}" | sudo tee docker-compose.yaml > /dev/null
             
             ## docker-compose 실행
