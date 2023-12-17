@@ -23,15 +23,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Copy secret
-        env:
-          SECRET_ENV: ${{ secrets.ENV_VARS }}
-          DIR: /home/ubuntu/
-          FILENAME_ENV: .env
-        run: |
-          cd /home/ubuntu/
-          
-          echo $SECRET_ENV | base64 --decode > $FILENAME_ENV
+#      - name: Copy secret
+#        env:
+#          SECRET_ENV: ${{ secrets.ENV_VARS }}
+#          FILENAME_ENV: .env
+#        run: |
+#          cd /home/ubuntu/
+#
+#          echo $SECRET_ENV | base64 --decode > $FILENAME_ENV
 
       - name: Build with Gradle
         run: ./gradlew bootJar
