@@ -25,11 +25,11 @@ jobs:
 
       - name: Copy secret
         env:
-          SECRET_ENV: ${{secrets.ENV_VARS}}
+          SECRET_ENV: ${{ secrets.ENV_VARS }}
           DIR: /home/ubuntu/
           FILENAME_ENV: .env
         run: |
-          mkdir $DIR
+          cd /home/ubuntu/
           
           echo $SECRET_ENV | base64 --decode > $FILENAME_ENV
 
