@@ -25,7 +25,7 @@ jobs:
 
       - name: Copy secret
         env:
-          SECRET_ENV: ${{ secrets.ENV_VARS}}
+          SECRET_ENV: ${{secrets.ENV_VARS}}
           DIR: /home/ubuntu/
           FILENAME_ENV: .env
         run: |
