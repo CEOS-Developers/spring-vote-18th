@@ -23,15 +23,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-#      - name: Copy secret
-#        env:
-#          SECRET_ENV: ${{ secrets.ENV_VARS }}
-#          FILENAME_ENV: .env
-#        run: |
-#          cd /home/ubuntu/
-#
-#          echo $SECRET_ENV | base64 --decode > $FILENAME_ENV
-
       - name: Build with Gradle
         run: ./gradlew bootJar
 
@@ -50,6 +41,8 @@ jobs:
           script: |
             
             cd /home/ubuntu/
+            
+            echo ${{ secrets.ENV_VARS }} | base64 --decode > .env
             
             ## docker-compose 실행
             sudo chmod 666 /var/run/docker.sock
