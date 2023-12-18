@@ -1,5 +1,6 @@
 package com.example.springvote18th.entity;
 
+import com.example.springvote18th.dto.auth.AuthRequestDto;
 import com.example.springvote18th.entity.base.BaseTimeEntity;
 import com.example.springvote18th.entity.enums.Part;
 import com.example.springvote18th.entity.enums.Team;
@@ -64,4 +65,17 @@ public class Member extends BaseTimeEntity {
     public void updateIsVerified(boolean isVerified) {
         this.isVerified = isVerified;
     }
+
+    public static Member of(AuthRequestDto authRequestDto) {
+        return Member.builder()
+                .username(authRequestDto.getUsername())
+                .password(authRequestDto.getPassword())
+                .name(authRequestDto.getName())
+                .email(authRequestDto.getEmail())
+                .teamName(authRequestDto.getTeamName())
+                .part(authRequestDto.getPart())
+                .isVerified(authRequestDto.getIsVerified())
+                .build();
+    }
+
 }
