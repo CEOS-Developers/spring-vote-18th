@@ -2,7 +2,6 @@ package com.example.springvote18th.controller;
 
 import com.example.springvote18th.common.ApiResponse;
 import com.example.springvote18th.dto.auth.request.AuthRequestDto;
-import com.example.springvote18th.dto.auth.request.EmailRequestDto;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.service.AuthService;
