@@ -1,12 +1,13 @@
 package com.example.springvote18th.controller;
 
-import com.example.springvote18th.dto.auth.AuthRequestDto;
-import com.example.springvote18th.dto.auth.SigninRequestDto;
+import com.example.springvote18th.common.ApiResponse;
+import com.example.springvote18th.dto.auth.request.AuthRequestDto;
+import com.example.springvote18th.dto.auth.request.EmailRequestDto;
+import com.example.springvote18th.dto.auth.request.SigninRequestDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,14 +21,15 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<TokenDto> signup(@RequestBody AuthRequestDto authRequestDto) {
+    public ApiResponse<TokenDto> signup(@RequestBody AuthRequestDto authRequestDto) {
         log.info("유저 회원가입하기");
-        return ResponseEntity.ok(authService.signup(authRequestDto));
+        return ApiResponse.createSuccess(authService.signup(authRequestDto));
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<TokenDto> signin(@RequestBody SigninRequestDto signinRequestDto) {
+    public ApiResponse<TokenDto> signin(@RequestBody SigninRequestDto signinRequestDto) {
         log.info("유저 로그인하기");
-        return ResponseEntity.ok(authService.signin(signinRequestDto));
+        return ApiResponse.createSuccess(authService.signin(signinRequestDto));
     }
+
 }
