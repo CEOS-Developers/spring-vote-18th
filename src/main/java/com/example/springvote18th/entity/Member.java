@@ -58,9 +58,8 @@ public class Member extends BaseTimeEntity {
     private Boolean isPartLeaderVoted;
 
     @Builder
-    public Member(Long id, String username, String password, String name,
+    public Member(String username, String password, String name,
                   String email, Team teamName, Part part, Boolean isVerified) {
-        this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
