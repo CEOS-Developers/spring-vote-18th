@@ -21,7 +21,7 @@ import java.util.List;
 public class PartLeaderController {
     private final PartLeaderService partLeaderService;
 
-    @Operation(summary = "파트장 투표 후보 조회", description = "파트장 투표 후보 조회를 요청합니다.")
+    @Operation(summary = "파트장 투표 후보 조회", description = "파트장 투표 후보 조회를 요청합니다. 요청 형식: /partLeader?part={part}")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "후보 조회 성공, 득표순으로 내림차순 정렬")
     })
@@ -33,7 +33,7 @@ public class PartLeaderController {
         return ResponseEntity.ok(partLeaderService.getPartLeaderCandidates(part));
     }
 
-    @Operation(summary = "파트장 투표", description = "파트장 투표를 요청합니다.")
+    @Operation(summary = "파트장 투표", description = "파트장 투표를 요청합니다. 요청 형식: /partLeader/{candidateId}?userId={userId}")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "투표 성공, 득표순으로 내림차순 정렬"),
             @ApiResponse(responseCode = "400", description = "1. 이미 투표권을 행사함\n 2. 다른 파트에 투표함"),

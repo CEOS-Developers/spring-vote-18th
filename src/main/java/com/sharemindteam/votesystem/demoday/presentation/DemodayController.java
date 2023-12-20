@@ -30,7 +30,7 @@ public class DemodayController {
         return ResponseEntity.ok(demodayService.getDemodayCandidates());
     }
 
-    @Operation(summary = "데모데이 투표", description = "데모데이 투표를 요청합니다.")
+    @Operation(summary = "데모데이 투표", description = "데모데이 투표를 요청합니다. 요청 형식: /demoday/{candidateId}?userId={userId}")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "투표 성공, 득표순으로 내림차순 정렬"),
             @ApiResponse(responseCode = "400", description = "1. 이미 투표권을 행사함\n 2. 본인 팀에 투표함"),
