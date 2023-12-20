@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -51,5 +52,17 @@ public class User extends BaseEntity {
 
     public void updateVotedPartLeader() {
         this.votedPart = true;
+    }
+
+    @Builder
+    public User(String loginId, String password, String email, String name, Part part, Team team) {
+        this.loginId = loginId;
+        this.password = password;//todo: password 암호화
+        this.email = email;
+        this.name = name;
+        this.part = part;
+        this.team = team;
+        this.votedPart = false;
+        this.votedDemoday = false;
     }
 }
