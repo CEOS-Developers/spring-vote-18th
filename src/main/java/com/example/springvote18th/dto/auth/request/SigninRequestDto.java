@@ -1,4 +1,4 @@
-package com.example.springvote18th.dto.auth;
+package com.example.springvote18th.dto.auth.request;
 
 import lombok.Builder;
 import lombok.Getter;

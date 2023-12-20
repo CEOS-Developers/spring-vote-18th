@@ -1,7 +1,7 @@
 package com.example.springvote18th.service;
 
-import com.example.springvote18th.dto.auth.AuthRequestDto;
-import com.example.springvote18th.dto.auth.SigninRequestDto;
+import com.example.springvote18th.dto.auth.request.AuthRequestDto;
+import com.example.springvote18th.dto.auth.request.SigninRequestDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.entity.Member;
 import com.example.springvote18th.repository.MemberRepository;

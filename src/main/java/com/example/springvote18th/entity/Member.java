@@ -1,6 +1,6 @@
 package com.example.springvote18th.entity;
 
-import com.example.springvote18th.dto.auth.AuthRequestDto;
+import com.example.springvote18th.dto.auth.request.AuthRequestDto;
 import com.example.springvote18th.entity.base.BaseTimeEntity;
 import com.example.springvote18th.entity.enums.Part;
 import com.example.springvote18th.entity.enums.Team;
@@ -48,10 +48,18 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Part part;
 
+    @Column(nullable = false)
     private Boolean isVerified;
 
+    @Column(nullable = false)
+    private Boolean isProjectVoted;
+
+    @Column(nullable = false)
+    private Boolean isPartLeaderVoted;
+
     @Builder
-    public Member(Long id, String username, String password, String name, String email, Team teamName, Part part, Boolean isVerified) {
+    public Member(Long id, String username, String password, String name,
+                  String email, Team teamName, Part part, Boolean isVerified) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -60,10 +68,20 @@ public class Member extends BaseTimeEntity {
         this.teamName = teamName;
         this.part = part;
         this.isVerified = isVerified;
+        this.isProjectVoted = Boolean.FALSE;
+        this.isPartLeaderVoted = Boolean.FALSE;
     }
 
-    public void updateIsVerified(boolean isVerified) {
-        this.isVerified = isVerified;
+    public void updateIsVerified() {
+        this.isVerified = Boolean.TRUE;
+    }
+
+    public void updateIsProjectVoted() {
+        this.isProjectVoted = Boolean.TRUE;
+    }
+
+    public void updateIsPartLeaderVoted() {
+        this.isPartLeaderVoted = Boolean.TRUE;
     }
 
     public static Member of(AuthRequestDto authRequestDto) {

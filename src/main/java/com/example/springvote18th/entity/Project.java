@@ -37,4 +37,8 @@ public class Project extends BaseTimeEntity {
         this.description = description;
         this.count = count;
     }
+
+    public void updateCount() {
+        this.count += 1;
+    }
 }
