@@ -47,6 +47,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/vote/project").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/vote/partleader/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
