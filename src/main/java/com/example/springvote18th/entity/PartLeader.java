@@ -44,4 +44,8 @@ public class PartLeader extends BaseTimeEntity {
         this.count = count;
         this.part = part;
     }
+
+    public void updateCount() {
+        this.count += 1;
+    }
 }
