@@ -18,7 +18,7 @@ public class AuthRequestDto {
     private Part part;
     private Boolean isVerified;
 
-    public Member toMember(PasswordEncoder passwordEncoder)  {
+    public Member of(PasswordEncoder passwordEncoder)  {
         return Member.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
