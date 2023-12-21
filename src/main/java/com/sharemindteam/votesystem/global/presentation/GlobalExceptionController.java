@@ -4,6 +4,7 @@ import com.sharemindteam.votesystem.global.exception.AlreadyVotedException;
 import com.sharemindteam.votesystem.global.exception.CandidateNotFoundException;
 import com.sharemindteam.votesystem.global.exception.IllegalVoteException;
 import com.sharemindteam.votesystem.global.exception.PartNotFoundException;
+import com.sharemindteam.votesystem.global.exception.TeamNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,12 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(PartNotFoundException.class)
     public ResponseEntity<String> catchPartNotFoundException(PartNotFoundException e) {
+        log.error(e.getMessage(), e);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(TeamNotFoundException.class)
+    public ResponseEntity<String> catchTeamNotFoundException(TeamNotFoundException e) {
         log.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
