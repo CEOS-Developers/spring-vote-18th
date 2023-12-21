@@ -46,6 +46,8 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/signIn").permitAll()
                                 .requestMatchers("/user/email").permitAll()
                                 .requestMatchers("/user/loginId").permitAll()
+                                .requestMatchers("/demoday").permitAll()
+                                .requestMatchers("/partLeader").permitAll()
                                 .anyRequest().hasRole("USER") //user 권한을 가지고 있으면 가능하게 만듦
                 )
                 .exceptionHandling((exceptionConfig) ->
