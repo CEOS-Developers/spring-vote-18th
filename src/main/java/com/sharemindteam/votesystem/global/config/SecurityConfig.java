@@ -48,6 +48,7 @@ public class SecurityConfig {
                                 .requestMatchers("/user/loginId").permitAll()
                                 .requestMatchers("/demoday").permitAll()
                                 .requestMatchers("/partLeader").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
                                 .anyRequest().hasRole("USER") //user 권한을 가지고 있으면 가능하게 만듦
                 )
                 .exceptionHandling((exceptionConfig) ->
