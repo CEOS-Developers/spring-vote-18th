@@ -28,3 +28,6 @@ springdoc:
       enabled: true
   cache:
     disabled: true
+jwt:
+  secret: ${JWT_SECRET}
+  access_token_validation: ${JWT_ACCESS_EXPIRE}
