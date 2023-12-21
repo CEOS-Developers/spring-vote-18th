@@ -1,5 +1,6 @@
 package com.sharemindteam.votesystem.partLeader.presentation;
 
+import com.sharemindteam.votesystem.global.jwt.CustomUserDetails;
 import com.sharemindteam.votesystem.partLeader.application.PartLeaderService;
 import com.sharemindteam.votesystem.partLeader.dto.response.PartLeaderResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,7 +46,7 @@ public class PartLeaderController {
             @Parameter(name = "candidateId", description = "후보 아이디")
     })
     @PatchMapping("/{candidateId}")
-    public ResponseEntity<List<PartLeaderResponse>> addPartLeaderVotes(@RequestParam Long userId, @PathVariable Long candidateId) {
-        return ResponseEntity.ok(partLeaderService.addPartLeaderVotes(userId, candidateId));
+    public ResponseEntity<List<PartLeaderResponse>> addPartLeaderVotes(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long candidateId) {
+        return ResponseEntity.ok(partLeaderService.addPartLeaderVotes(customUserDetails.getUserId(), candidateId));
     }
 }
