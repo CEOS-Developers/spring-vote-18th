@@ -35,15 +35,14 @@ public class PartLeaderController {
         return ResponseEntity.ok(partLeaderService.getPartLeaderCandidates(part));
     }
 
-    @Operation(summary = "파트장 투표", description = "파트장 투표를 요청합니다. 요청 형식: /partLeader/{candidateId}?userId={userId}")
+    @Operation(summary = "파트장 투표", description = "파트장 투표를 요청합니다. 요청 형식: /partLeader/{candidateId}")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "투표 성공, 득표순으로 내림차순 정렬"),
             @ApiResponse(responseCode = "400", description = "1. 이미 투표권을 행사함\n 2. 다른 파트에 투표함"),
             @ApiResponse(responseCode = "404", description = "1. 존재하지 않는 회원 아이디로 요청됨\n 2. 존재하지 않는 후보 아이디로 요청됨")
     })
     @Parameters({
-            @Parameter(name = "userId", description = "회원 아이디"),
-            @Parameter(name = "candidateId", description = "후보 아이디")
+            @Parameter(name = "candidateId", description = "파트장 후보 아이디")
     })
     @PatchMapping("/{candidateId}")
     public ResponseEntity<List<PartLeaderResponse>> addPartLeaderVotes(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long candidateId) {
