@@ -60,6 +60,7 @@ public class AuthServiceImpl implements AuthService {
         }
         return TokenDto.builder()
                 .accessToken(token)
+                .refreshToken(refreshToken)
                 .build();
     }
 }
