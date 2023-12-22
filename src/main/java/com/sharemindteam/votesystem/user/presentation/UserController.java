@@ -1,5 +1,6 @@
 package com.sharemindteam.votesystem.user.presentation;
 
+import com.sharemindteam.votesystem.email.application.EmailService;
 import com.sharemindteam.votesystem.email.exception.InvalidEmailException;
 import com.sharemindteam.votesystem.user.application.UserService;
 import com.sharemindteam.votesystem.user.dto.request.PostEmailRequest;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
+    private final EmailService emailService;
 
     @GetMapping
     public String getHello() {
@@ -37,11 +38,11 @@ public class UserController {
     @PostMapping("/email")
     public ResponseEntity<Void> isDuplicatedEmail(@Valid @RequestBody PostEmailRequest postEmailRequest,
                                                   Errors errors) {
-        System.out.println("error: "+errors);
         if (errors.hasErrors()) {
             throw new InvalidEmailException(postEmailRequest.getEmail());
         }
         userService.validateEmail(postEmailRequest.getEmail());
+        emailService.sendVerificationCode(postEmailRequest.getEmail());
         return ResponseEntity.ok().build();
     }
 }
