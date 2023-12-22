@@ -12,7 +12,24 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASS}
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASS}
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
 springdoc:
   version: v1
   packages-to-scan: com.sharemindteam.votesystem # swagger 적용 위해 스캔할 패키지
