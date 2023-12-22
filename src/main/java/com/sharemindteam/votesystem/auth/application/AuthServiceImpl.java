@@ -1,6 +1,7 @@
 package com.sharemindteam.votesystem.auth.application;
 
 import com.sharemindteam.votesystem.auth.dto.request.PostLoginRequest;
+import com.sharemindteam.votesystem.auth.exception.TokenExpiredException;
 import com.sharemindteam.votesystem.global.dto.response.TokenDto;
 import com.sharemindteam.votesystem.global.jwt.TokenProvider;
 import com.sharemindteam.votesystem.user.application.UserService;
@@ -43,9 +44,23 @@ public class AuthServiceImpl implements AuthService {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 postLoginRequest.getLoginId(), postLoginRequest.getPassword());
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        String token = tokenProvider.createAccessToken(authentication);
+        String accessToken = tokenProvider.createAccessToken(authentication);
+        String refreshToken = tokenProvider.createRefreshToken(authentication);
+        return TokenDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    @Override
+    public TokenDto reissueToken(String refreshToken) {
+        String token = tokenProvider.reissueAccessToken(refreshToken);
+        if (token == null) {
+            throw new TokenExpiredException();
+        }
         return TokenDto.builder()
                 .accessToken(token)
+                .refreshToken(refreshToken)
                 .build();
     }
 }

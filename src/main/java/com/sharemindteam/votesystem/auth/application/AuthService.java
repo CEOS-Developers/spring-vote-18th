@@ -8,4 +8,6 @@ public interface AuthService {
     void signUp(CreateUserRequest createUserRequest);
 
     TokenDto signIn(PostLoginRequest postLoginRequest);
+
+    TokenDto reissueToken(String refreshToken);
 }

@@ -44,6 +44,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/auth/signUp").permitAll()
                                 .requestMatchers("/auth/signIn").permitAll()
+                                .requestMatchers("/auth").permitAll()
                                 .requestMatchers("/user/email").permitAll()
                                 .requestMatchers("/user/loginId").permitAll()
                                 .requestMatchers("/demoday").permitAll()

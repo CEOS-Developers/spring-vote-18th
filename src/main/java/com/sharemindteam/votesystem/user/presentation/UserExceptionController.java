@@ -25,7 +25,7 @@ public class UserExceptionController {
     }
 
     @ExceptionHandler(LoginIdAlreadyExistsException.class)
-    public ResponseEntity<String> LoginIdAlreadyExistsException(LoginIdAlreadyExistsException e) {
+    public ResponseEntity<String> catchLoginIdAlreadyExistsException(LoginIdAlreadyExistsException e) {
         log.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
     }

@@ -2,6 +2,7 @@ package com.sharemindteam.votesystem.auth.presentation;
 
 import com.sharemindteam.votesystem.auth.application.AuthService;
 import com.sharemindteam.votesystem.auth.dto.request.PostLoginRequest;
+import com.sharemindteam.votesystem.auth.dto.request.PostTokenRequest;
 import com.sharemindteam.votesystem.global.dto.response.TokenDto;
 import com.sharemindteam.votesystem.user.dto.request.CreateUserRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,5 +30,10 @@ public class AuthController {
     @PostMapping("signIn")
     public TokenDto signIn(@RequestBody PostLoginRequest postLoginRequest) {
         return authService.signIn(postLoginRequest);
+    }
+
+    @PostMapping
+    public TokenDto reissueToken(@RequestBody PostTokenRequest postTokenRequest) {
+        return authService.reissueToken(postTokenRequest.getRefreshToken());
     }
 }
