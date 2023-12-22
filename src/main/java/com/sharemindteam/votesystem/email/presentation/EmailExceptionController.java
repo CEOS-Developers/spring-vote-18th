@@ -23,9 +23,10 @@ public class EmailExceptionController {
         log.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
     @ExceptionHandler(CodeAlreadyExistsException.class)
     public ResponseEntity<String> catchCodeAlreadyExistsException(CodeAlreadyExistsException e) {
         log.error(e.getMessage(), e);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 }
