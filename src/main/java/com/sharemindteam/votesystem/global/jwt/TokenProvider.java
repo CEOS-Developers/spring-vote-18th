@@ -112,7 +112,6 @@ public class TokenProvider implements InitializingBean {
     }
 
     public TokenStatus validateToken(String token) {
-        System.out.println("token 은 " + token);
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return TokenStatus.VALID;
