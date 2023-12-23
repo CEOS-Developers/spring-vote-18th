@@ -3,6 +3,7 @@ package com.example.springvote18th.service;
 import com.example.springvote18th.dto.auth.request.AuthRequestDto;
 import com.example.springvote18th.dto.auth.request.EmailMessage;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
+import com.example.springvote18th.dto.auth.request.UsernameRequestDto;
 import com.example.springvote18th.dto.auth.response.EmailResponseDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.entity.Member;
@@ -59,6 +60,15 @@ public class AuthService {
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 
         return tokenProvider.createAccessToken(authentication);
+    }
+
+    public void checkDuplicatedUsername(UsernameRequestDto usernameRequestDto) {
+        String username = usernameRequestDto.getUsername();
+        Optional<Member> member = memberRepository.findByUsername(username);
+        if (member.isPresent()) {
+            log.debug("AuthService.checkDuplicatedUsername exception occur username: {}", username);
+            throw new IllegalArgumentException("중복된 아이디입니다.");
+        }
     }
 
     public EmailResponseDto sendEmail(EmailMessage emailMessage) {
