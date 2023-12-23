@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @Tag(name = "Demoday Controller", description = "데모데이 투표 컨트롤러")
 @RestController
 @RequestMapping("/demoday")
