@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @Tag(name = "Part Leader Controller", description = "파트장 투표 컨트롤러")
 @RestController
 @RequestMapping("/partLeader")
@@ -45,7 +46,8 @@ public class PartLeaderController {
             @Parameter(name = "candidateId", description = "파트장 후보 아이디")
     })
     @PatchMapping("/{candidateId}")
-    public ResponseEntity<List<PartLeaderResponse>> addPartLeaderVotes(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long candidateId) {
+    public ResponseEntity<List<PartLeaderResponse>> addPartLeaderVotes(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long candidateId) {
         return ResponseEntity.ok(partLeaderService.addPartLeaderVotes(customUserDetails.getUserId(), candidateId));
     }
 }
