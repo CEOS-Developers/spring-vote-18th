@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vote/project")
+@RequestMapping("/api/project")
 @RequiredArgsConstructor
 @Slf4j
 public class ProjectController {
