@@ -1,0 +1,52 @@
+package com.example.springvote18th.controller;
+
+import com.example.springvote18th.common.ApiResponse;
+import com.example.springvote18th.dto.partleader.request.PartLeaderVoteRequestDto;
+import com.example.springvote18th.dto.partleader.response.PartLeaderReadResponseDto;
+import com.example.springvote18th.dto.partleader.response.PartLeaderVoteReadResponseDto;
+import com.example.springvote18th.service.PartLeaderService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/partleader")
+@RequiredArgsConstructor
+@Slf4j
+public class PartLeaderController {
+    private final PartLeaderService partLeaderService;
+
+    @GetMapping("/front")
+    public ApiResponse<List<PartLeaderReadResponseDto>> findAllFrontPartLeaders() {
+        return ApiResponse.createSuccess(partLeaderService.findAllFrontPartLeaders());
+    }
+
+    @GetMapping("/back")
+    public ApiResponse<List<PartLeaderReadResponseDto>> findAllBackPartLeaders() {
+        return ApiResponse.createSuccess(partLeaderService.findAllBackPartLeaders());
+    }
+
+    // 파트장 투표 결과
+    @GetMapping("/front/result")
+    public ApiResponse<List<PartLeaderVoteReadResponseDto>> findAllFrontPartLeaderVotes() {
+        return ApiResponse.createSuccess(partLeaderService.findAllFrontPartLeaderVotes());
+    }
+
+    @GetMapping("/back/result")
+    public ApiResponse<List<PartLeaderVoteReadResponseDto>> findAllBackPartLeaderVotes() {
+        return ApiResponse.createSuccess(partLeaderService.findAllBackPartLeaderVotes());
+    }
+
+    // 파트장 투표
+    @PostMapping
+    public ApiResponse postPartLeaderVote(@RequestBody PartLeaderVoteRequestDto partLeaderVoteRequestDto, @AuthenticationPrincipal User user) {
+
+        partLeaderService.postPartLeaderVote(partLeaderVoteRequestDto, user);
+
+        return ApiResponse.createSuccessWithNoContent();
+    }
+}
