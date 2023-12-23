@@ -3,6 +3,7 @@ package com.example.springvote18th.service;
 import com.example.springvote18th.dto.auth.request.AuthRequestDto;
 import com.example.springvote18th.dto.auth.request.EmailMessage;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
+import com.example.springvote18th.dto.auth.response.EmailResponseDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.entity.Member;
 import com.example.springvote18th.repository.MemberRepository;
@@ -60,6 +61,20 @@ public class AuthService {
         return tokenProvider.createAccessToken(authentication);
     }
 
+    public EmailResponseDto sendEmail(EmailMessage emailMessage) {
+        checkDuplicatedEmail(emailMessage.getTo());
+        String code = createCode();
+        SimpleMailMessage emailForm = createEmailForm(emailMessage, code);
+        try {
+            emailSender.send(emailForm);
+            log.info("AuthService.sendEmail Success 200");
+            return EmailResponseDto.builder().code(code).build();
+        } catch (RuntimeException e) {
+            log.debug("AuthService.sendEmail exception to: {}, subject: {}, text: {}", emailMessage.getTo(), emailMessage.getSubject(), code);
+            throw new RuntimeException("이메일을 보낼 수 없습니다.");
+        }
+    }
+
     private String createCode() {
         int lenth = 6;
         Random random = new Random();
@@ -84,15 +99,12 @@ public class AuthService {
 
         return message;
     }
-    public void sendEmail(EmailMessage emailMessage) {
-        String text = createCode();
-        SimpleMailMessage emailForm = createEmailForm(emailMessage, text);
-        try {
-            emailSender.send(emailForm);
-            log.info("MailService.sendEmail Success 200");
-        } catch (RuntimeException e) {
-            log.debug("MailService.sendEmail exception to: {}, subject: {}, text: {}", emailMessage.getTo(), emailMessage.getSubject(), text);
-            throw new RuntimeException("이메일을 보낼 수 없습니다.");
+
+    private void checkDuplicatedEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent()) {
+            log.debug("AuthService.checkDuplicatedEmail exception occur email: {}", email);
+            throw new IllegalArgumentException("중복된 이메일입니다.");
         }
     }
 }
