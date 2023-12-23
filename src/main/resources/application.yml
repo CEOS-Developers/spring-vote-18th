@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASS}
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: ${EMAIL_PORT}
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASS}
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+springdoc:
+  version: v1
+  packages-to-scan: com.sharemindteam.votesystem # swagger 적용 위해 스캔할 패키지
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    tags-sorter: alpha # alpha: 알파벳 순 정렬, method: HTTP method 순 정렬
+    operations-sorter: alpha
+    doc-expansion: none
+  api-docs:
+    path: /api-docs/json
+    groups:
+      enabled: true
+  cache:
+    disabled: true
+jwt:
+  secret: ${JWT_SECRET}
+  access_token_validation: ${JWT_ACCESS_EXPIRE}
+  refresh_token_validation: ${JWT_REFRESH_EXPIRE}
