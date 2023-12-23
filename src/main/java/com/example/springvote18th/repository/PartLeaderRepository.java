@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface PartLeaderRepository extends JpaRepository<PartLeader, Long> {
     List<PartLeader> findAllByPart(Part part);
+    List<PartLeader> findAllByPartOrderByCountDesc(Part part);
 }

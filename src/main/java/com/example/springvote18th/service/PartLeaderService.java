@@ -44,7 +44,7 @@ public class PartLeaderService {
     }
 
     public List<PartLeaderVoteReadResponseDto> findAllFrontPartLeaderVotes() {
-        List<PartLeader> partLeaderList = partLeaderRepository.findAllByPart(Part.FRONTEND);
+        List<PartLeader> partLeaderList = partLeaderRepository.findAllByPartOrderByCountDesc(Part.FRONTEND);
         List<PartLeaderVoteReadResponseDto> partLeaderVoteReadResponseDtoList = partLeaderList.stream()
                 .map(partLeader -> PartLeaderVoteReadResponseDto.from(partLeader))
                 .collect(Collectors.toList());
@@ -52,7 +52,7 @@ public class PartLeaderService {
     }
 
     public List<PartLeaderVoteReadResponseDto> findAllBackPartLeaderVotes() {
-        List<PartLeader> partLeaderList = partLeaderRepository.findAllByPart(Part.BACKEND);
+        List<PartLeader> partLeaderList = partLeaderRepository.findAllByPartOrderByCountDesc(Part.BACKEND);
         List<PartLeaderVoteReadResponseDto> partLeaderVoteReadResponseDtoList = partLeaderList.stream()
                 .map(partLeader -> PartLeaderVoteReadResponseDto.from(partLeader))
                 .collect(Collectors.toList());
