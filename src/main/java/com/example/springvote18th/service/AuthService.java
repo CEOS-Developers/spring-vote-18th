@@ -1,12 +1,16 @@
 package com.example.springvote18th.service;
 
 import com.example.springvote18th.dto.auth.request.AuthRequestDto;
+import com.example.springvote18th.dto.auth.request.EmailMessage;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.entity.Member;
 import com.example.springvote18th.repository.MemberRepository;
 import com.example.springvote18th.security.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -15,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Random;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,6 +30,7 @@ public class AuthService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
+    private final JavaMailSender emailSender;
 
     @Transactional
     public TokenDto signup(AuthRequestDto authRequestDto) {
@@ -51,5 +58,41 @@ public class AuthService {
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
 
         return tokenProvider.createAccessToken(authentication);
+    }
+
+    private String createCode() {
+        int lenth = 6;
+        Random random = new Random();
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < lenth; i++) {
+            int index = random.nextInt(4);
+
+            switch (index) {
+                case 0: builder.append((char) ((int) random.nextInt(26) + 97)); break;
+                case 1: builder.append((char) ((int) random.nextInt(26) + 65)); break;
+                default: builder.append(random.nextInt(9));
+            }
+        }
+        return builder.toString();
+    }
+
+    private SimpleMailMessage createEmailForm(EmailMessage emailMessage, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(emailMessage.getTo());
+        message.setSubject(emailMessage.getSubject());
+        message.setText(text);
+
+        return message;
+    }
+    public void sendEmail(EmailMessage emailMessage) {
+        String text = createCode();
+        SimpleMailMessage emailForm = createEmailForm(emailMessage, text);
+        try {
+            emailSender.send(emailForm);
+            log.info("MailService.sendEmail Success 200");
+        } catch (RuntimeException e) {
+            log.debug("MailService.sendEmail exception to: {}, subject: {}, text: {}", emailMessage.getTo(), emailMessage.getSubject(), text);
+            throw new RuntimeException("이메일을 보낼 수 없습니다.");
+        }
     }
 }

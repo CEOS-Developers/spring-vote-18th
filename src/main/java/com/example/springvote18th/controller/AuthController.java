@@ -2,15 +2,15 @@ package com.example.springvote18th.controller;
 
 import com.example.springvote18th.common.ApiResponse;
 import com.example.springvote18th.dto.auth.request.AuthRequestDto;
+import com.example.springvote18th.dto.auth.request.EmailMessage;
+import com.example.springvote18th.dto.auth.request.EmailRequestDto;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -31,4 +31,15 @@ public class AuthController {
         return ApiResponse.createSuccess(authService.signin(signinRequestDto));
     }
 
+    @PostMapping("/email")
+    public ApiResponse sendMessage(@RequestBody EmailRequestDto emailRequestDto) {
+        EmailMessage emailMessage = EmailMessage.builder()
+                .to(emailRequestDto.getEmail())
+                .subject("[REDDI] 이메일 인증을 위한 인증 코드 발송")
+                .build();
+
+        authService.sendEmail(emailMessage);
+
+        return ApiResponse.createSuccessWithNoContent();
+    }
 }
