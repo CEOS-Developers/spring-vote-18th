@@ -5,6 +5,7 @@ import com.example.springvote18th.dto.auth.request.AuthRequestDto;
 import com.example.springvote18th.dto.auth.request.EmailMessage;
 import com.example.springvote18th.dto.auth.request.EmailRequestDto;
 import com.example.springvote18th.dto.auth.request.SigninRequestDto;
+import com.example.springvote18th.dto.auth.response.EmailResponseDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.service.AuthService;
 import jakarta.validation.Valid;
@@ -32,14 +33,12 @@ public class AuthController {
     }
 
     @PostMapping("/email")
-    public ApiResponse sendMessage(@RequestBody EmailRequestDto emailRequestDto) {
+    public ApiResponse<EmailResponseDto> sendMessage(@RequestBody EmailRequestDto emailRequestDto) {
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(emailRequestDto.getEmail())
                 .subject("[REDDI] 이메일 인증을 위한 인증 코드 발송")
                 .build();
 
-        authService.sendEmail(emailMessage);
-
-        return ApiResponse.createSuccessWithNoContent();
+        return ApiResponse.createSuccess(authService.sendEmail(emailMessage));
     }
 }
