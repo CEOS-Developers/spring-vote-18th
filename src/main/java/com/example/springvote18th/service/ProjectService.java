@@ -34,7 +34,7 @@ public class ProjectService {
     }
 
     public List<ProjectVoteReadResponseDto> findAllProjectVotes() {
-        List<Project> projectList = projectRepository.findAll();
+        List<Project> projectList = projectRepository.findAllByOrderByCountDesc();
         List<ProjectVoteReadResponseDto> projectVoteReadResponses = projectList.stream()
                 .map(project -> ProjectVoteReadResponseDto.from(project))
                 .collect(Collectors.toList());
@@ -47,20 +47,6 @@ public class ProjectService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 멤버가 없습니다."));
 
         if (!member.getIsProjectVoted()) {
-//            projectVoteRequest.getProjectIdList().stream().forEach(arr -> {
-//                Project project = projectRepository.findById(arr.getProjectId())
-//                        .orElseThrow(() -> new IllegalArgumentException("해당 프로젝트가 없습니다."));
-//
-//                project.updateCount();
-//
-//                memberProjectRepository.save(MemberProject.builder()
-//                                .member(member)
-//                                .project(project)
-//                                .build());
-//
-//                projectRepository.save(project);
-//            });
-
             Project project = projectRepository.findById(projectVoteRequest.getProjectId())
                     .orElseThrow(() -> new IllegalArgumentException("해당 프로젝트가 없습니다."));
 
