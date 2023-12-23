@@ -46,8 +46,8 @@ public class WebSecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/vote/project/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/vote/partleader/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/project/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/partleader/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
