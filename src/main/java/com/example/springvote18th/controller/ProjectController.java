@@ -22,13 +22,13 @@ public class ProjectController {
 
     @GetMapping
     public ApiResponse<List<ProjectReadResponseDto>> findAllProjects() {
-        return ApiResponse.createSuccess(projectService.findAllProjects());
+        return ApiResponse.successResponse(projectService.findAllProjects());
     }
 
     // 데모데이 결과
     @GetMapping("/result")
     public ApiResponse<List<ProjectVoteReadResponseDto>> findAllProjectVotes() {
-        return ApiResponse.createSuccess(projectService.findAllProjectVotes());
+        return ApiResponse.successResponse(projectService.findAllProjectVotes());
     }
 
     // 데모데이 투표
@@ -37,7 +37,7 @@ public class ProjectController {
 
         projectService.postProjectVote(projectVoteRequest, user);
 
-        return ApiResponse.createSuccessWithNoContent();
+        return ApiResponse.successWithNoContent();
     }
 
 }

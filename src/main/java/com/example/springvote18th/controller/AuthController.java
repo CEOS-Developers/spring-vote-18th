@@ -5,9 +5,9 @@ import com.example.springvote18th.dto.auth.request.*;
 import com.example.springvote18th.dto.auth.response.EmailResponseDto;
 import com.example.springvote18th.dto.security.TokenDto;
 import com.example.springvote18th.service.AuthService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,20 +20,20 @@ public class AuthController {
     @PostMapping("/signup")
     public ApiResponse<TokenDto> signup(@RequestBody AuthRequestDto authRequestDto) {
         log.info("유저 회원가입하기");
-        return ApiResponse.createSuccess(authService.signup(authRequestDto));
+        return ApiResponse.successResponse(authService.signup(authRequestDto));
     }
 
     @PostMapping("/signin")
     public ApiResponse<TokenDto> signin(@RequestBody SigninRequestDto signinRequestDto) {
         log.info("유저 로그인하기");
-        return ApiResponse.createSuccess(authService.signin(signinRequestDto));
+        return ApiResponse.successResponse(authService.signin(signinRequestDto));
     }
 
     @PostMapping("/verify/username")
-    public ApiResponse checkUsername(@RequestBody UsernameRequestDto usernameRequestDto) {
+    public ApiResponse<?> checkUsername(@RequestBody UsernameRequestDto usernameRequestDto) {
         log.info("아이디 중복 체크");
         authService.checkDuplicatedUsername(usernameRequestDto);
-        return ApiResponse.createSuccessWithNoContent();
+        return ApiResponse.successWithNoContent();
     }
 
     @PostMapping("/verify/email")
@@ -45,6 +45,6 @@ public class AuthController {
                 .subject("[REDDI] 이메일 인증을 위한 인증 코드 발송")
                 .build();
 
-        return ApiResponse.createSuccess(authService.sendEmail(emailMessage));
+        return ApiResponse.successResponse(authService.sendEmail(emailMessage));
     }
 }

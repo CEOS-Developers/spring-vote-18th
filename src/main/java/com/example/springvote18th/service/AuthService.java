@@ -56,15 +56,16 @@ public class AuthService {
     @Transactional
     public TokenDto signin(SigninRequestDto signinRequestDto) {
 
-        // 이메일 인증이 완료되지 않은 유저는 로그인 불가
-        Optional<Member> findUser = memberRepository.findByUsername(signinRequestDto.getUsername());
-		if (findUser.isPresent() && !findUser.get().getIsVerified()) {
-            throw new RuntimeException("이메일 인증이 완료되지 않은 유저입니다.");
-        }
-
         UsernamePasswordAuthenticationToken authenticationToken = signinRequestDto.toAuthentication();
 
         Authentication authentication = managerBuilder.getObject().authenticate(authenticationToken);
+
+        // authentication 로부터 username을 가져와서 이메일 인증 여부 확인
+        // 이메일 인증이 완료되지 않은 유저는 로그인 불가
+        Optional<Member> findUser = memberRepository.findByUsername(authentication.getName());
+        if (findUser.isPresent() && !findUser.get().getIsVerified()) {
+            throw new RuntimeException("이메일 인증이 완료되지 않은 유저입니다.");
+        }
 
         return tokenProvider.createAccessToken(authentication);
     }

@@ -22,23 +22,23 @@ public class PartLeaderController {
 
     @GetMapping("/front")
     public ApiResponse<List<PartLeaderReadResponseDto>> findAllFrontPartLeaders() {
-        return ApiResponse.createSuccess(partLeaderService.findAllFrontPartLeaders());
+        return ApiResponse.successResponse(partLeaderService.findAllFrontPartLeaders());
     }
 
     @GetMapping("/back")
     public ApiResponse<List<PartLeaderReadResponseDto>> findAllBackPartLeaders() {
-        return ApiResponse.createSuccess(partLeaderService.findAllBackPartLeaders());
+        return ApiResponse.successResponse(partLeaderService.findAllBackPartLeaders());
     }
 
     // 파트장 투표 결과
     @GetMapping("/front/result")
     public ApiResponse<List<PartLeaderVoteReadResponseDto>> findAllFrontPartLeaderVotes() {
-        return ApiResponse.createSuccess(partLeaderService.findAllFrontPartLeaderVotes());
+        return ApiResponse.successResponse(partLeaderService.findAllFrontPartLeaderVotes());
     }
 
     @GetMapping("/back/result")
     public ApiResponse<List<PartLeaderVoteReadResponseDto>> findAllBackPartLeaderVotes() {
-        return ApiResponse.createSuccess(partLeaderService.findAllBackPartLeaderVotes());
+        return ApiResponse.successResponse(partLeaderService.findAllBackPartLeaderVotes());
     }
 
     // 파트장 투표
@@ -47,6 +47,6 @@ public class PartLeaderController {
 
         partLeaderService.postPartLeaderVote(partLeaderVoteRequestDto, user);
 
-        return ApiResponse.createSuccessWithNoContent();
+        return ApiResponse.successWithNoContent();
     }
 }
