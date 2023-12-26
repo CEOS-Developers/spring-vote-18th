@@ -1,5 +1,6 @@
 package com.example.springvote18th.common;
 
+import com.example.springvote18th.dto.member.response.InfoResponseDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,6 @@ public class ApiResponse<T> {
         this.data = data;
         this.message = message;
     }
+
+
 }
