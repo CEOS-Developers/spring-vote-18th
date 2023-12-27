@@ -2,9 +2,11 @@ package com.sharemindteam.votesystem.user.presentation;
 
 import com.sharemindteam.votesystem.email.application.EmailService;
 import com.sharemindteam.votesystem.email.exception.InvalidEmailException;
+import com.sharemindteam.votesystem.global.jwt.CustomUserDetails;
 import com.sharemindteam.votesystem.user.application.UserService;
 import com.sharemindteam.votesystem.user.dto.request.PostEmailRequest;
 import com.sharemindteam.votesystem.user.dto.request.PostLoginIdRequest;
+import com.sharemindteam.votesystem.user.dto.response.GetUserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -12,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +32,17 @@ public class UserController {
     private final UserService userService;
     private final EmailService emailService;
 
+    @Operation(summary = "로그인 시 유저 정보 반환", description = "헤더에 있는 토큰을 통해 유저 정보를 반환합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "유저 정보 반환 성공"),
+            @ApiResponse(responseCode = "403", description = "accessToken 만료"),
+            @ApiResponse(responseCode = "404", description = "해당하는 유저가 존재하지 않을때")
+    })
     @GetMapping
-    public String getHello() {
-        return "hello";
+    public ResponseEntity<GetUserResponse> getUser(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+
+        GetUserResponse getUserResponse = userService.getUser(customUserDetails.getUserId());
+        return ResponseEntity.ok(getUserResponse);
     }
 
     @Operation(summary = "로그인 아이디 중복 체크", description = "해당 로그인 아이디 중복인지(사용가능한지) 체크합니다.")
