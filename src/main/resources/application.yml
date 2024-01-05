@@ -1,0 +1,48 @@
+spring:
+
+  profiles:
+    include: secret
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(aaX0j72mYzWkdVKfmPSv5K3RI0oVxwToz7mqL8Y8Dv2+8iqO7YaSFVvIl+fuaZKYbxN7wd6zBE0XvbXa8fSBmufq2aRVHVRX+Y71TnkCeOY81CyS1cZX4g==)
+    username: ENC(qOgX3PNBqpY45OYhqZFcoQ==)
+    password: ENC(Zg96EiJQDju2pWAq/nC5vwapLPZL4WLQ)
+
+  data:
+    redis:
+      host: ENC(n6ejidlXbMDGdngiGk8kq0uWRObFa34G)
+      port: 6379
+      password: ENC(FIeAY3yR5U1sI9DOAZT0YnIrevSXfWho)
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      properties:
+        hibernate.format_sql: true
+      ddl-auto: update
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-vote.html
+
+client-url: ENC(xZJ/NyHwyN5VEY3W6Btq++gSySY0VzGxn9iJuP25Wj3vmwGsulhgRQ==)
+domain: ENC(wtMoW4E5IOZgq215uWHzGsBlrqecbyNr9lsrql5da0LFtz4cywsN8Fap3bhNqVYQ0RuvblLIewQZo+u8pBCaFA==)
